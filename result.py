@@ -23,9 +23,9 @@ class Result:
         if confidence >= 90:
             # High-confidence
             self._high.append(payload)
-        elif confidence < 90 and confidence >= 30:
+        elif confidence < 90 and confidence > 30:
             self._medium.append(payload)
-        elif confidence < 30:
+        elif confidence <= 30:
             self._low.append(payload)
 
     @property
