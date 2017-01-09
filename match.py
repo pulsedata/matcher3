@@ -2,7 +2,7 @@
 Welcome to Matcher 3
 (c) PulseData/ftxrc 2016
 
-This matches the pristine, virgin PR.gov into usable ones.
+This matches the pristine, virgin PR.gov sets into usable ones.
 '''
 
 # TODO: Testability
