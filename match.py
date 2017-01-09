@@ -67,6 +67,6 @@ for graduate in GRADUATES:
     if school_item:
         r.insert(school_item['accuracy'], graduate)
     
-print("%d records were matched by ftxrc/PulseData Matcher3(c)." % COUNTER_MATCHED)
+print("%d records were matched by ftxrc/PulseData Matcher3(c)." % len(r.all))
 percent = (len(r.all) / len(GRADUATES)) * 100
 print("%d percent of records could be matched using the algorithm." % percent)
