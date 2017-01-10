@@ -2,7 +2,7 @@
 Welcome to Matcher 3
 (c) PulseData/ftxrc 2016
 
-This matches the cleaned, purified PR.gov sets into usable ones.
+This matches the cleaned, purified Presult.gov sets into usable ones.
 '''
 
 # TODO: Testability
@@ -25,7 +25,7 @@ SCHOOLS = json.loads(open(args.schools, 'r').read())
 TIME = int(time.time())
 
 # The Result instance
-r = Result()
+result = Result()
 
 def create_school_item(school_id, name, accuracy=90):
     """ Return a school_item spec compatible dict. """
@@ -72,41 +72,41 @@ for graduate in GRADUATES:
 
     graduate['school_data'] = school_item
     if school_item:
-        r.insert(school_item['accuracy'], graduate)
+        result.insert(school_item['accuracy'], graduate)
 
 if not os.path.exists(result_path()):
     os.makedirs(result_path())
 
 with open(result_path('all.json'), 'a') as f:
-    f.write(json.dumps(r.all))
+    f.write(json.dumps(result.all))
 
 with open(result_path('high.json'), 'a') as f:
-    f.write(json.dumps(r.high))
+    f.write(json.dumps(result.high))
 
 with open(result_path('medium.json'), 'a') as f:
-    f.write(json.dumps(r.medium))
+    f.write(json.dumps(result.medium))
     
 with open(result_path('low.json'), 'a') as f:
-    f.write(json.dumps(r.low))
+    f.write(json.dumps(result.low))
 
 print("============= STATS =============")
-print("%d out of %d records were matched by ftxrc/PulseData Matcher3(c)." % (len(r.all), len(GRADUATES)))
-print("%d results were low confidence results, for manual review." % len(r.low))
-print("%d results were mid-tier confidence results." % len(r.medium))
-print("%d results were high confidence results." % len(r.high))
-percent = (len(r.all) / len(GRADUATES)) * 100
+print("%d out of %d records were matched by ftxrc/PulseData Matcher3(c)." % (len(result.all), len(GRADUATES)))
+print("%d results were low confidence results, for manual review." % len(result.low))
+print("%d results were mid-tier confidence results." % len(result.medium))
+print("%d results were high confidence results." % len(result.high))
+percent = (len(result.all) / len(GRADUATES)) * 100
 print("%d percent of records could be matched using the algorithm." % percent)
 print("=============  END STATS =============")
 
 if args.debug:
     print("\n============= DEBUG =============")
     print("High-tier:")
-    shuffled = random.sample(r.high, k=5)
+    shuffled = random.sample(result.high, k=5)
     print(json.dumps(shuffled, indent=2))
     print("Mid-tier:")
-    shuffled = random.sample(r.medium, k=5)
+    shuffled = random.sample(result.medium, k=5)
     print(json.dumps(shuffled, indent=2))
     print("Low-tier:")
-    shuffled = random.sample(r.low, k=5)
+    shuffled = random.sample(result.low, k=5)
     print(json.dumps(shuffled, indent=2))
     print("=============  END DEBUG =============")
